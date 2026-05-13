@@ -1,0 +1,12 @@
+{
+    "accessories": [
+        {
+            "accessory": "WebThermostat",
+            "name": "Fujitsu AC",
+            "apiroute": "http://fujitsu-ac.local",
+            "temperatureDisplayUnits": 0,
+            "maxTemp": 30,
+            "minTemp": 18
+        }
+    ]
+}

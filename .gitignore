@@ -1,0 +1,13 @@
+# Credentials
+config.h
+
+# Build artifacts
+build/
+build_error.txt
+build_log.txt
+compile_error.txt
+
+# IDE
+.vscode/
+*.swp
+*.swo
