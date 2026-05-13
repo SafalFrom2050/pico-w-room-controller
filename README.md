@@ -434,13 +434,13 @@ PicoW-AC-Controller/
 
 ## 🧪 Related Projects
 
-This controller is part of a larger **Hyperion Integration** ecosystem:
+This controller is part of a larger smart home IoT ecosystem:
 
 | Project | Platform | Description |
 |---------|----------|-------------|
 | **PicoW-AC-Controller** *(this)* | Pico W (RP2040) | IR-based Fujitsu AC control + Homebridge |
-| [**HyperionESP32C3**](../HyperionESP32C3/) | ESP32-C3 | Ambient TV backlighting + HomeKit (dual-mode) |
-| [**ESP32-AC-Controller**](../ESP32-AC-Controller/) | ESP32-C3 | Native HomeKit AC control via HomeSpan |
+| [**ambilight-esp32-homekit**](https://github.com/SafalFrom2050/ambilight-esp32-homekit) | ESP32-C3 | Dual-mode ambient TV backlighting (Hyperion UDP) + Apple HomeKit control with automatic mode arbitration |
+| [**Pico-Hyperion-Sentinel**](https://github.com/SafalFrom2050/Pico-Hyperion-Sentinel) | Pico W (RP2040) | Ambient lighting with animatronic eyes — servo-tracked head + 8×8 LED matrix eyes that blink and follow the brightest screen region |
 
 ---
 
