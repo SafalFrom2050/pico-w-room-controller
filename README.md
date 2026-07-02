@@ -603,18 +603,6 @@ PicoW-AC-Controller/
 - [ ] **Fahrenheit Support** — Enable bit 1 of byte 8 for US temperature units
 - [ ] **Schedule System** — On-device timer/schedule without Homebridge dependency
 
----
-
-## 🏷️ Suggested Repository Topics
-
-Add these topics via **GitHub → Settings → Topics** for maximum discoverability:
-
-```
-raspberry-pi-pico-w  pico-w  rp2040  arduino  iot  smart-home  homekit
-homebridge  fujitsu  air-conditioner  ir-remote  infrared  reverse-engineering
-ir-blaster  home-automation  siri  apple-home  ota-updates  rest-api
-embedded-systems  microcontroller  cpp
-```
 
 ---
 
