@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="PicoW AC Controller — Smart Fujitsu IR Blaster with Apple HomeKit, TV Learning, and Light Control" width="100%"/>
+  <img src="docs/images/banner.png" alt="PicoW Room Controller — Smart Fujitsu IR Blaster with Apple HomeKit, TV Learning, and Light Control" width="100%"/>
 </p>
 
-<h1 align="center">❄️ PicoW-AC-Controller</h1>
+<h1 align="center">❄️ PicoW-Room-Controller</h1>
 
 <p align="center">
   <strong>Smart room controller powered by Raspberry Pi Pico W — Fujitsu AC (reverse-engineered IR), ceiling light control, TV remote learning, web dashboard, Apple HomeKit via Homebridge, and OTA firmware updates</strong>
@@ -28,7 +28,7 @@
 
 ## 📖 Overview
 
-**PicoW-AC-Controller** turns a **$6 Raspberry Pi Pico W** into a multi-device smart room controller. Originally built to control a **Fujitsu split-system air conditioner** via a **reverse-engineered 144-bit IR protocol**, the project has grown into a full room automation hub that also controls ceiling lights, learns TV remote codes, and serves a real-time web dashboard — all accessible through **Apple HomeKit** via Homebridge.
+**PicoW-Room-Controller** turns a **$6 Raspberry Pi Pico W** into a multi-device smart room controller. Originally built to control a **Fujitsu split-system air conditioner** via a **reverse-engineered 144-bit IR protocol**, the project has grown into a full room automation hub that also controls ceiling lights, learns TV remote codes, and serves a real-time web dashboard — all accessible through **Apple HomeKit** via Homebridge.
 
 ### ✨ What It Does
 
@@ -171,7 +171,7 @@ byte8 = ((temp_celsius - 8) / 2) << 4 | 0x01
 
 ```mermaid
 mindmap
-  root((PicoW AC\nController))
+  root((PicoW Room\nController))
     Fujitsu AC Control
       Reverse-engineered 144-bit protocol
       Dynamic command generation
@@ -439,7 +439,7 @@ The project integrates with multiple Homebridge plugins to expose all devices to
 git clone https://github.com/SafalFrom2050/PicoW-AC-Controller.git
 
 # 2. Open in Arduino IDE
-#    File → Open → PicoW-AC-Controller.ino
+#    File → Open → PicoW-Room-Controller.ino
 ```
 
 ### Configuration
@@ -568,8 +568,8 @@ The firmware includes debug endpoints accessible via HTTP:
 ## 📁 Project Structure
 
 ```
-PicoW-AC-Controller/
-├── PicoW-AC-Controller.ino    # Main firmware — WiFi, web server, IR engine, dashboard,
+PicoW-Room-Controller/
+├── PicoW-Room-Controller.ino  # Main firmware — WiFi, web server, IR engine, dashboard,
 │                               #   light control, TV learning, OTA updates (1600+ lines)
 ├── config.example.h            # Template configuration (copy to config.h)
 ├── config.h                    # Your local config — WiFi, pins, thresholds (gitignored)
