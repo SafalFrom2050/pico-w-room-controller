@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="pico-w-room-controller — Smart Fujitsu IR Blaster with Apple HomeKit, TV Learning, and Light Control" width="100%"/>
+  <img src="docs/images/banner-clean.png" alt="pico-w-room-controller — Smart Fujitsu IR Blaster with Apple HomeKit, TV Learning, and Light Control" width="100%"/>
 </p>
 
 <h1 align="center">pico-w-room-controller</h1>
@@ -578,7 +578,7 @@ pico-w-room-controller/
 ├── LICENSE                     # MIT License
 ├── docs/
 │   └── images/
-│       └── banner.png          # README banner image
+│       └── banner-clean.png    # README banner image
 └── README.md                   # This file
 ```
 
