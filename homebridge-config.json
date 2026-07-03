@@ -7,6 +7,97 @@
             "temperatureDisplayUnits": 0,
             "maxTemp": 30,
             "minTemp": 18
+        },
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "Fujitsu Powerful",
+            "switchType": "stateful",
+            "onUrl": "http://fujitsu-ac.local/powerful?value=1",
+            "offUrl": "http://fujitsu-ac.local/powerful?value=0",
+            "statusUrl": "http://fujitsu-ac.local/powerfulStatus",
+            "statusPattern": "1",
+            "pullInterval": 10000
+        },
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "Normal Light",
+            "switchType": "stateful",
+            "onUrl": "http://fujitsu-ac.local/light/normal?value=1",
+            "offUrl": "http://fujitsu-ac.local/light/normal?value=0",
+            "statusUrl": "http://fujitsu-ac.local/light/normalStatus",
+            "statusPattern": "1",
+            "pullInterval": 10000
+        },
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "Night Light",
+            "switchType": "stateful",
+            "onUrl": "http://fujitsu-ac.local/light/night?value=1",
+            "offUrl": "http://fujitsu-ac.local/light/night?value=0",
+            "statusUrl": "http://fujitsu-ac.local/light/nightStatus",
+            "statusPattern": "1",
+            "pullInterval": 10000
+        },
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "TV Power",
+            "switchType": "stateless",
+            "onUrl": "http://fujitsu-ac.local/tv/power",
+            "pullInterval": 10000
+        },
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "TV Netflix",
+            "switchType": "stateless",
+            "onUrl": "http://fujitsu-ac.local/tv/netflix",
+            "pullInterval": 10000
+        }
+    ],
+    "platforms": [
+        {
+            "platform": "HomebridgeADB",
+            "accessories": [
+                {
+                    "name": "TCL Android TV",
+                    "ip": "192.168.0.132",
+                    "mac": "78:66:9d:5e:76:21",
+                    "interval": 10000,
+                    "poweron": "KEYCODE_WAKEUP",
+                    "poweroff": "KEYCODE_SLEEP",
+                    "volumeup": "KEYCODE_VOLUME_UP",
+                    "volumedown": "KEYCODE_VOLUME_DOWN",
+                    "up": "KEYCODE_DPAD_UP",
+                    "down": "KEYCODE_DPAD_DOWN",
+                    "left": "KEYCODE_DPAD_LEFT",
+                    "right": "KEYCODE_DPAD_RIGHT",
+                    "select": "KEYCODE_DPAD_CENTER",
+                    "back": "KEYCODE_BACK",
+                    "play": "KEYCODE_MEDIA_PLAY_PAUSE",
+                    "pause": "KEYCODE_MEDIA_PLAY_PAUSE",
+                    "apps": [
+                        {
+                            "name": "YouTube",
+                            "id": "com.google.android.youtube.tv"
+                        },
+                        {
+                            "name": "Netflix",
+                            "id": "com.netflix.ninja"
+                        },
+                        {
+                            "name": "HDMI 1",
+                            "id": "content://android.media.tv/passthrough/com.tcl.tvinput%2F.passthrough.TvPassThroughService%2FHW1413744384"
+                        },
+                        {
+                            "name": "HDMI 2",
+                            "id": "content://android.media.tv/passthrough/com.tcl.tvinput%2F.passthrough.TvPassThroughService%2FHW1413743104"
+                        },
+                        {
+                            "name": "HDMI 3",
+                            "id": "content://android.media.tv/passthrough/com.tcl.tvinput%2F.passthrough.TvPassThroughService%2FHW1413744128"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
