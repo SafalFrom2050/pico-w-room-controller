@@ -33,7 +33,7 @@ Byte:  0     1     2     3     4     5     6
 
 **Example (Power OFF):** `14 63 00 10 10 02 FD`
 
-## Power ON / Settings — Long Code (18 bytes / 144 bits)
+## Power ON / Settings — Long Code (18 bytes)
 
 ```
 Byte:  0     1     2     3     4     5     6     7     8     9
@@ -108,5 +108,5 @@ Power OFF:     14 63 00 10 10 02 FD
 
 - The IR signal requires **close range** with the V1221 transmitter module. A transistor driver circuit (NPN 2N2222 + 100Ω resistor) is recommended for room-distance operation.
 - Bytes 15–16 (`0x12`, `0x04`) appear constant across all captures and likely encode fan speed and swing direction defaults. Additional captures with different fan/swing settings would be needed to decode these.
-- The `sendRaw()` approach (pre-built timing array) is required on RP2040. Direct `sendPulseDistanceWidthFromArray()` does not work reliably for 144-bit signals.
+- The `sendRaw()` approach (pre-built timing array) is required on RP2040. Direct `sendPulseDistanceWidthFromArray()` does not work reliably for the captured long frames.
 - The IR receiver must be stopped (`IrReceiver.stop()`) during transmission to prevent timing jitter.

@@ -2,7 +2,7 @@
 #include <WebServer.h>
 #include <Adafruit_NeoPixel.h>
 #include <LEAmDNS.h> // mDNS support for Pico W
-#define RAW_BUFFER_LENGTH 750 // For air condition remotes (144+ bits)
+#define RAW_BUFFER_LENGTH 750 // For long air conditioner remote frames
 #include <IRremote.hpp> // Use IRremote for hardware pulsing
 #include "RP2040_PWM.h"
 #include "config.h"
@@ -446,7 +446,7 @@ void sendIRCommand() {
   Serial.print(" | Mode: "); Serial.println(acMode);
 
   if (acPower) {
-      // Use the custom 144-bit sender for ON and Temperature updates
+      // Use the custom Fujitsu long-frame sender for ON and temperature updates
       // Determine if we are just starting or updating settings
       static bool lastAcPower = false;
       bool isStart = (acPower && !lastAcPower);

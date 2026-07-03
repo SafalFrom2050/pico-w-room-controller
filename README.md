@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner-clean.png" alt="pico-w-room-controller — Smart Fujitsu IR Blaster with Apple HomeKit, TV Learning, and Light Control" width="100%"/>
+  <img src="docs/images/banner-clean.png" alt="pico-w-room-controller — Smart Fujitsu AC IR controller with Apple HomeKit, TV Learning, and Light Control" width="100%"/>
 </p>
 
 <h1 align="center">pico-w-room-controller</h1>
@@ -10,7 +10,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-RP2040_(Pico_W)-A2235E?style=for-the-badge&logo=raspberrypi&logoColor=white" alt="Raspberry Pi Pico W"/>
-  <img src="https://img.shields.io/badge/Protocol-Fujitsu_IR_(144--bit)-E4405F?style=for-the-badge&logo=infrared&logoColor=white" alt="Fujitsu IR Protocol"/>
+  <img src="https://img.shields.io/badge/Protocol-Fujitsu_AC_IR-E4405F?style=for-the-badge&logo=infrared&logoColor=white" alt="Fujitsu AC IR Protocol"/>
   <img src="https://img.shields.io/badge/HomeKit-via_Homebridge-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Apple HomeKit Integration"/>
   <img src="https://img.shields.io/badge/IDE-Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white" alt="Arduino IDE"/>
 </p>
@@ -28,13 +28,13 @@
 
 ## 📖 Overview
 
-**pico-w-room-controller** turns a **$6 Raspberry Pi Pico W** into a multi-device smart room controller. Originally built to control a **Fujitsu split-system air conditioner** via a **reverse-engineered 144-bit IR protocol**, the project has grown into a full room automation hub that also controls ceiling lights, learns TV remote codes, and serves a real-time web dashboard — all accessible through **Apple HomeKit** via Homebridge.
+**pico-w-room-controller** turns a **$6 Raspberry Pi Pico W** into a multi-device smart room controller. Originally built to control a **Fujitsu split-system air conditioner** via a **reverse-engineered Fujitsu AC IR protocol**, the project has grown into a full room automation hub that also controls ceiling lights, learns TV remote codes, and serves a real-time web dashboard — all accessible through **Apple HomeKit** via Homebridge.
 
 ### ✨ What It Does
 
 | Capability | Description |
 |-----------|-------------|
-| **Fujitsu AC Control** | Generates bit-perfect 144-bit IR commands (cool, heat, auto, power off, powerful mode) using a fully reverse-engineered protocol |
+| **Fujitsu AC Control** | Generates bit-perfect Fujitsu AC IR commands (cool, heat, auto, power off, powerful mode) using a reverse-engineered protocol |
 | **Ceiling Light Control** | Toggles normal and night modes via NEC IR protocol with photoresistor-based state detection |
 | **TV Remote Learning** | Captures IR codes from any TV remote (NEC, Samsung, Sony, RC5/6, PulseDistance) via an IR receiver, stores them in EEPROM, and replays on demand |
 | **Web Dashboard** | Glassmorphism dark-mode dashboard served directly from the Pico W for controlling all devices from a browser |
@@ -108,17 +108,17 @@ sequenceDiagram
     User->>HB: "Set AC to 22°C, cooling"
     HB->>Pico: GET /targetTemperature?value=22
     HB->>Pico: GET /targetHeatingCoolingState?value=2
-    Pico->>Pico: Build 18-byte Fujitsu IR frame
+    Pico->>Pico: Build Fujitsu AC IR frame
     Pico->>Pico: Calculate checksum (byte 17)
     Pico->>Pico: Encode to raw mark/space timings
-    Pico->>AC: 🔴 38kHz modulated IR (144 bits)
+    Pico->>AC: 🔴 38kHz modulated IR command
     Pico-->>HB: 200 OK
     HB-->>User: ✅ AC set to 22°C cooling
 ```
 
 ---
 
-## 🔬 Reverse-Engineered Fujitsu IR Protocol
+## 🔬 Reverse-Engineered Fujitsu AC IR Protocol
 
 A key technical achievement of this project is the **complete reverse-engineering of the Fujitsu AR-RFL5J remote protocol**. The protocol was decoded by capturing raw IR timings from the original remote and analyzing the bit patterns.
 
@@ -128,7 +128,7 @@ A key technical achievement of this project is the **complete reverse-engineerin
 
 | Feature | Short Code (OFF) | Long Code (ON/Settings) |
 |---------|:-----------------:|:-----------------------:|
-| **Length** | 7 bytes (56 bits) | 18 bytes (144 bits) |
+| **Length** | 7 bytes | 18 bytes |
 | **Carrier** | 38 kHz | 38 kHz |
 | **Bit Order** | LSB first | LSB first |
 | **Header** | 3324µs mark + 1574µs space | 3324µs mark + 1574µs space |
@@ -173,7 +173,7 @@ byte8 = ((temp_celsius - 8) / 2) << 4 | 0x01
 mindmap
   root((PicoW Room\nController))
     Fujitsu AC Control
-      Reverse-engineered 144-bit protocol
+      Reverse-engineered Fujitsu AC IR protocol
       Dynamic command generation
       Cool / Heat / Auto modes
       Powerful mode
@@ -499,7 +499,7 @@ The IR receiver is stopped during transmission (`IrReceiver.stop()`) and restart
 
 ### IR Transmission Strategy
 
-The RP2040 requires special handling for long IR signals. Direct pulse-distance encoding fails for 144-bit frames due to timing jitter. This project uses a **pre-built raw timing array** approach:
+The RP2040 requires special handling for long AC IR signals. Direct pulse-distance encoding was unreliable for the captured Fujitsu long frames due to timing jitter. This project uses a **pre-built raw timing array** approach:
 
 ```
 1. Build array:  [HDR_MARK, HDR_SPACE, BIT_MARK, BIT_SPACE, ..., STOP_MARK]
@@ -542,7 +542,7 @@ Thresholds are calibrated via the web dashboard sliders and persisted to EEPROM.
 | Decision | Rationale |
 |----------|-----------|
 | **Pico W over ESP32** | Dual-core M0+ provides stable IR timing; dedicated core for WiFi prevents jitter |
-| **Manual mark/space encoding** | `sendPulseDistanceWidthFromArray()` unreliable on RP2040 for 144-bit signals |
+| **Manual mark/space encoding** | `sendPulseDistanceWidthFromArray()` unreliable on RP2040 for the captured Fujitsu long frames |
 | **mDNS naming** | `fujitsu-ac.local` eliminates need for static IP configuration |
 | **WebThermostat protocol** | HTTP-based Homebridge plugin — simpler than implementing full HAP on RP2040 |
 | **ArduinoOTA updates** | Built-in OTA support uses Earle Philhower's core filesystem partition for wireless sketch updates |
@@ -556,7 +556,7 @@ The firmware includes debug endpoints accessible via HTTP:
 
 ```
 🔬 DEBUG ENDPOINTS:
-     GET /selftest?cmd=cool_on  →  Sends known-good 18-byte Cool ON frame
+     GET /selftest?cmd=cool_on  →  Sends known-good Cool ON frame
      GET /selftest?cmd=off      →  Sends known-good 7-byte Power OFF frame
      GET /raw?hex=146300...     →  Inject arbitrary hex bytes for protocol testing
      GET /ir/dump               →  Dump raw timing buffer of last received IR signal
@@ -586,7 +586,7 @@ pico-w-room-controller/
 
 ## 🗺️ Roadmap
 
-- [x] **Fujitsu AC Control** — Reverse-engineered 144-bit protocol with dynamic command generation
+- [x] **Fujitsu AC Control** — Reverse-engineered Fujitsu AC IR protocol with dynamic command generation
 - [x] **Apple HomeKit Integration** — Full Homebridge support via WebThermostat + HTTP-SWITCH
 - [x] **OTA Updates** — Flash firmware wirelessly via ArduinoOTA
 - [x] **Powerful Mode** — Short code `0x39` for Fujitsu max-power burst
